@@ -166,3 +166,111 @@ chart_data = pd.DataFrame(
     columns = ['a','b','c']
 )
 st.line_chart(chart_data)
+
+# st.selectbox
+
+## 用户选择一个颜色
+## 显示用户选择的颜色
+
+## 选择一个复选框
+
+## ex1.
+st.header('st.selectbox')
+option = st.selectbox(
+    "What is your favorite color?",
+    ('Blue','Red','Green')
+)
+st.write('Your favorite color is ',option)
+
+## ex2.设置默认值
+option = st.selectbox(
+    "how would you like to be contacted?",
+    ('Email','Home phone','Mobile phone'),
+    index = None,
+    placeholder = "Select contact method...",
+)
+st.write('You selected: ',option)
+
+## ex3.多个复选框选项
+## 在会话状态中存储部件的初始值
+if "visibility" not in st.session_state:
+    st.session_state.visibility = "visible"
+    st.session_state.disabled = False
+## 设定两列
+col1,col2=st.columns(2)
+## 第一列展示的东西
+with col1:
+    # 设置一个检查框，设定是否可见
+    st.checkbox("Disable selectbox widget",key="disabled")
+    # 设定radio选项
+    st.radio(
+        "Set selectbox label visibility ",
+        key = "visibility",
+        options = ["visible","hidden","collapsed"],
+    )
+## 第二列要展示的东西
+with col2:
+    option = st.selectbox(
+        "How would you like to be contacted?",
+        ("Email","Home phone","Mobile phone"),
+        label_visibility=st.session_state.visibility,
+        disabled=st.session_state.disabled,
+    )
+
+# st.multiselect（多选）
+
+st.header('st.multiselect')
+options = st.multiselect(
+    'What are your favorite colors',
+    ['Green','Yellow','Red','Blue'],
+    ['Yellow','Red']
+)
+st.write('You selected: ',options)
+
+# st.checkbox（勾选组件）
+
+st.header('st.checkbox')
+st.write('What would you like to order?')
+
+icecream=st.checkbox('Ice cream')
+coffee=st.checkbox('Coffee')
+tea=st.checkbox('Tea')
+
+if icecream:
+    st.write("Great! Here's some more :icecream:")
+if coffee:
+    st.write("Okay, here's some coffee :coffee:")
+if tea:
+    st.write("Here you go :tea:")
+
+# 组件s（用不了）
+
+# st.secrets（用不了）
+
+# st.file_uploader（上传文件的组件）
+
+from io import StringIO
+
+## 上传一个文件
+uploaded_file = st.file_uploader("Choose a file")
+## 不为空则上传
+if uploaded_file is not None:
+    # 以字节形式上传
+    bytes_data = uploaded_file.getvalue()
+    st.write(bytes_data)
+    # 转换为基于字符串的IO
+    stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+    st.write(stringio)
+    # 以字符串形式读取文件
+    string_data = stringio.read()
+    st.write(string_data)
+    # 可用于接受“类文件”对象的任何地方
+    dataframe = pd.read_csv(uploaded_file)
+    st.write(dataframe)
+
+## 多文件上传
+uploaded_files = st.file_uploader("Choose a CSV file",accept_multiple_files = True)
+for uploaded_file in uploaded_files:
+    bytes_data = uploaded_file.read()
+    st.write("filename:",uploaded_file.name)
+    st.write(bytes_data)
