@@ -148,7 +148,7 @@ st.subheader('Datetime slider')
 
 start_time = st.slider(
     "When do you start?",
-    value = datetime(2020,1,1,9,30),  
+    value = datetime(2020,1,1,9,30),
     format = "MM/DD/YY - hh:mm"
 )
 st.write("Start time:",start_time)
@@ -157,3 +157,12 @@ st.write("Start time:",start_time)
 
 ## 使用numpy随机出一些数字，并用其创建一个pandas数据库
 ## 创建并显示折线图
+import pandas as pd
+import numpy as np
+
+st.header('Line chart')
+chart_data = pd.DataFrame(
+    np.random.randn(20,3),
+    columns = ['a','b','c']
+)
+st.line_chart(chart_data)
