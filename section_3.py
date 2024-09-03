@@ -152,3 +152,8 @@ start_time = st.slider(
     format = "MM/DD/YY - hh:mm"
 )
 st.write("Start time:",start_time)
+
+# st.line_chart
+
+## 使用numpy随机出一些数字，并用其创建一个pandas数据库
+## 创建并显示折线图
