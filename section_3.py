@@ -111,3 +111,44 @@ st.latex(r'''
 st.text('This is some text.')
 
 # https://github.com/stsg732/CSH
+
+# st.slider
+
+from datetime import time, datetime
+
+## 添加一个隔断线
+st.header('st.slider')
+
+## ex1.添加一个小一号的标题
+st.subheader('Slider')
+
+age = st.slider('How old are you?', 0, 130, 25)
+st.write("I'm ",age, 'years old.')
+
+## ex2.
+st.subheader('Range slider')
+
+values = st.slider(
+    'Select a range of values',
+    0.0, 100.0, (25.0, 75.0)
+)
+st.write('values:', values)
+
+## ex3.
+st.subheader('Range time slider')
+
+appointment = st.slider(
+    "Schedule your appointment:",
+    value = (time(11,30),time(12,45))
+)
+st.write("You're scheduled for: ",apponitment)
+
+## ex4.
+st.subheader('Datetime slider')
+
+start_time = st.slider(
+    "When do you start?",
+    value = datetime(2020,1,1,9,30),  # 默认值设置为2020年1月1日9点30分
+    format = "MM/DD/YY - hh:mm"
+)
+st.write("Start time:",start_time)
